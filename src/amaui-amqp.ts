@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
 
-import { merge } from '@amaui/utils';
+import merge from '@amaui/utils/merge';
 import { AmauiAmqpError, ConnectionError } from '@amaui/errors';
 import AmauiLog from '@amaui/log';
 import AmauiSubscription from '@amaui/subscription';
