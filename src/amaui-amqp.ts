@@ -108,8 +108,9 @@ class AmauiAmqp {
       if (this.connected) return resolve(this.connection_);
 
       try {
-        const a = await this.connect();
-        return resolve(a);
+        const connection = await this.connect();
+
+        return resolve(connection);
       }
       catch (error) {
         reject(error);
@@ -327,6 +328,7 @@ class AmauiAmqp {
       this.amalog.info(`Connected`);
 
       this.connection_ = connection;
+
       this.connected = true;
 
       this.subscription.emit('connected');
