@@ -29,12 +29,12 @@ class AmauiAmqp {
   private options_: IOptions = optionsDefault;
   // For listening on amqp events
   public subscription = new AmauiSubscription();
-  public queues = {};
-  public exchanges = {};
-  public sendOptions = {
+  public queues: Record<string, any> = {};
+  public exchanges: Record<string, any> = {};
+  public sendOptions: amqp.Options.Publish = {
     persistent: true,
   };
-  public exchangeOptions = {
+  public exchangeOptions: amqp.Options.Publish = {
     persistent: false,
   };
 
