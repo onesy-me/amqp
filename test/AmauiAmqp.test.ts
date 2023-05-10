@@ -22,7 +22,7 @@ preAll(async () => {
   await amqp.disconnect;
 });
 
-group('@amaui/amqp', () => {
+group('AmauiAmqp', () => {
   let amqp: AmauiAmqp;
   const messages = [];
   const responses = {};

@@ -1,1 +1,1 @@
-export { default } from './amaui-amqp';
+export { default } from './AmauiAmqp';
