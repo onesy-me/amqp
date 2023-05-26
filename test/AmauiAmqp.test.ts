@@ -109,11 +109,22 @@ group('AmauiAmqp', () => {
       assert((await amqp.checkQueue('a')).consumerCount).eq(1);
     });
 
+    to('subscribe', async () => {
+      const response = await amqp.subscribe('a', async message => {
+        responses['a'].push(message);
+      });
+
+      queues['a'] = response;
+
+      assert(response.consumerTag).to.be.a('string');
+      assert((await amqp.checkQueue('a')).consumerCount).eq(2);
+    });
+
     to('cancel', async () => {
       const response = await amqp.cancel(queues['a'].consumerTag);
 
       assert(response).eql({ consumerTag: queues['a'].consumerTag });
-      assert((await amqp.checkQueue('a')).consumerCount).eq(0);
+      assert((await amqp.checkQueue('a')).consumerCount).eq(1);
     });
 
     to('send', async () => {
