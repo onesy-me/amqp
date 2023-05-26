@@ -1,14 +1,24 @@
 import amqp from 'amqplib';
 
 import merge from '@amaui/utils/merge';
+import stringify from '@amaui/utils/stringify';
+import parse from '@amaui/utils/parse';
 import { AmauiAmqpError, ConnectionError } from '@amaui/errors';
 import AmauiLog from '@amaui/log';
 import AmauiSubscription from '@amaui/subscription';
 
-interface IExchange {
+export interface IExchange {
   name: string;
   type: string;
 }
+
+export interface IMessageDataOptions {
+  parse?: boolean;
+}
+
+export type TSend = amqp.Options.Publish & {
+  stringify?: boolean;
+};
 
 export interface IOptions {
   uri?: string;
@@ -68,16 +78,43 @@ class AmauiAmqp {
     return channel.ack(message, allUpTo);
   }
 
+  public async nack(message: amqp.Message, requeue: boolean = true, allUpTo: boolean = false): Promise<void> {
+    const channel = await this.channel;
+
+    return channel.nack(message, allUpTo, requeue);
+  }
+
   public async consume(queue: string, method: (msg: amqp.ConsumeMessage) => any, options: amqp.Options.Consume = { noAck: false }): Promise<amqp.Replies.Consume> {
     const channel = await this.channel;
 
     return await channel.consume(queue, method, options);
   }
 
-  public async send(queue: string, data: any = '', options: amqp.Options.Publish = {}): Promise<boolean> {
+  // Alias for the consume method
+  public subscribe = this.consume;
+
+  public messageData(message: amqp.ConsumeMessage, options: IMessageDataOptions = { parse: true }) {
+    if (message) {
+      const data = message.content.toString();
+
+      return options.parse ? parse(data) : data;
+    }
+  }
+
+  public async send(queue: string, data_: any = '', options: TSend = { stringify: true }): Promise<boolean> {
+    const {
+      stringify: stringifyData,
+
+      ...otherOptions
+    } = options;
+
     const channel = await this.channel;
 
-    return channel.sendToQueue(queue, Buffer.from(data), { ...this.sendOptions, ...options });
+    let data = data_;
+
+    if (stringifyData) data = stringify(data);
+
+    return channel.sendToQueue(queue, Buffer.from(data), { ...this.sendOptions, ...otherOptions });
   }
 
   public async publish(exchange: string, routingKey: string, data: any = '', options?: amqp.Options.Publish): Promise<boolean> {
@@ -131,7 +168,7 @@ class AmauiAmqp {
     });
   }
 
-  private async createChannel(): Promise<amqp.Channel> {
+  public async createChannel(): Promise<amqp.Channel> {
     const connection = await this.connection;
 
     try {
@@ -141,7 +178,7 @@ class AmauiAmqp {
 
       this.channel_ = channel;
 
-      this.subscription.emit('channel:connected');
+      this.subscription.emit('channel');
 
       return channel;
     }
@@ -311,6 +348,8 @@ class AmauiAmqp {
         catch (error) {
           this.amalog.warn(`Connection close error`, error);
 
+          this.subscription.emit('disconnect:error', error);
+
           throw new ConnectionError(error);
         }
       }
@@ -319,7 +358,7 @@ class AmauiAmqp {
     });
   }
 
-  private async connect(): Promise<amqp.Connection | undefined> {
+  public async connect(): Promise<amqp.Connection | undefined> {
     const { uri } = this.options;
 
     try {
@@ -351,7 +390,7 @@ class AmauiAmqp {
 
       this.connected = false;
 
-      this.subscription.emit('error', error);
+      this.subscription.emit('connect:error', error);
 
       throw new ConnectionError(error);
     }

@@ -117,7 +117,7 @@ group('AmauiAmqp', () => {
     });
 
     to('send', async () => {
-      const response = await amqp.send('a', 'a');
+      const response = await amqp.send('a', { a: 1114 });
 
       assert(response).eq(true);
 
@@ -144,6 +144,21 @@ group('AmauiAmqp', () => {
       const message = await amqp.get('a');
 
       assert(message).exist;
+    });
+
+    to('messageData', async () => {
+      const message = messages[0];
+
+      assert(amqp.messageData(message)).eql({ a: 1114 });
+    });
+
+    to('nack', async () => {
+      await amqp.nack(responses[newQueue.queue][0]);
+
+      // Wait until ack is actually made
+      await wait(140);
+
+      assert((await amqp.checkQueue(newQueue.queue)).messageCount).eq(1);
     });
 
     to('ack', async () => {
