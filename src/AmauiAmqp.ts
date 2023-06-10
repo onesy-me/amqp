@@ -61,8 +61,10 @@ class AmauiAmqp {
 
     this.amalog = new AmauiLog({
       arguments: {
-        pre: ['AmauiAmqp'],
-      },
+        pre: [
+          'AMQP'
+        ]
+      }
     });
   }
 
@@ -173,8 +175,6 @@ class AmauiAmqp {
 
     try {
       const channel = await connection.createChannel();
-
-      this.amalog.info(`Channel created`);
 
       this.channel_ = channel;
 
