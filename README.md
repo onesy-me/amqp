@@ -41,6 +41,12 @@
   yarn add @amaui/amqp
 ```
 
+Add `amqplib` peer dependency.
+
+```sh
+  yarn add amqplib
+```
+
 ### Use
 
 ```javascript
@@ -70,18 +76,6 @@
 
 ### Dev
 
-#### One time local setup
-
-Install docker and docker-compose
-
-  - https://docs.docker.com/get-docker
-  - https://docs.docker.com/compose/install
-
-Make docker containers
-
-```sh
-  yarn docker
-```
 
 Install
 
@@ -93,6 +87,19 @@ Test
 
 ```sh
   yarn test
+```
+
+One time local setup
+
+Install docker and docker-compose
+
+  - https://docs.docker.com/get-docker
+  - https://docs.docker.com/compose/install
+
+Make docker containers
+
+```sh
+  yarn docker
 ```
 
 ### Prod

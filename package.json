@@ -22,14 +22,14 @@
     "amaui"
   ],
   "scripts": {
-    "docker": "docker-compose -p 'amaui' up -d",
     "prebuild": "rimraf build",
     "build": "node utils/js/build.js",
     "release": "yarn test && yarn build && npm publish ./build",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "type": "tsc --noEmit -p tsconfig.json",
     "cov": "cross-env NODE_ENV=test amaui-test",
-    "test": "yarn lint && yarn type && yarn build && yarn cov"
+    "test": "yarn lint && yarn type && yarn build && yarn cov",
+    "docker": "docker-compose -p 'amaui' up -d"
   },
   "peerDependencies": {
     "amqplib": "^0.8.0"

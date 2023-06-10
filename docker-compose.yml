@@ -2,20 +2,22 @@
 version: '3.8'
 
 services:
-  rabbitmq:
-    image: rabbitmq:3.8.9
-    container_name: rabbitmq
-    volumes:
-      - '~/.amaui/.rabbitmq:/var/lib/rabbitmq/mnesia'
+  amaui-rabbitmq:
+    image: rabbitmq:management
+    container_name: amaui-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=amaui
+      - RABBITMQ_DEFAULT_PASS=amaui
     ports:
-      - '5672:5672'
-      - '15672:15672'
+      - "5672:5672"
+      - "15672:15672"
 
-  rabbitmq-test:
-    image: rabbitmq:3.8.9
-    container_name: rabbitmq-test
-    volumes:
-      - '~/.amaui/.test/.rabbitmq:/var/lib/rabbitmq/mnesia'
+  amaui-rabbitmq-test:
+    image: rabbitmq:management
+    container_name: amaui-rabbitmq-test
+    environment:
+      - RABBITMQ_DEFAULT_USER=amaui
+      - RABBITMQ_DEFAULT_PASS=amaui
     ports:
-      - '4672:5672'
-      - '14672:15672'
+      - "7672:5672"
+      - "17672:15672"
