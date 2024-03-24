@@ -1,6 +1,6 @@
 {
   "name": "@amaui/amqp",
-  "version": "1.1.12",
+  "version": "1.1.14",
   "description": "AMQP",
   "repository": "https://github.com/amaui-org/amaui-amqp.git",
   "author": "Lazar <lazareric.com@gmail.com>",
@@ -32,7 +32,7 @@
     "docker": "docker-compose -p 'amaui' up -d"
   },
   "peerDependencies": {
-    "amqplib": "^0.8.0"
+    "amqplib": "^0.10.3"
   },
   "dependencies": {
     "@amaui/errors": "^1.0.111",
@@ -53,7 +53,7 @@
     "@babel/preset-typescript": "^7.16.0",
     "@types/amqplib": "^0.8.2",
     "@types/node": "^16.11.10",
-    "amqplib": "^0.8.0",
+    "amqplib": "^0.10.3",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
