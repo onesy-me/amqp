@@ -1,6 +1,6 @@
 
-</br >
-</br >
+</br>
+</br>
 
 <p align='center'>
   <a target='_blank' rel='noopener noreferrer' href='#'>
@@ -38,13 +38,13 @@
 ### Add
 
 ```sh
-  yarn add @amaui/amqp
+yarn add @amaui/amqp
 ```
 
 Add `amqplib` peer dependency.
 
 ```sh
-  yarn add amqplib
+yarn add amqplib
 ```
 
 ### Use
@@ -80,13 +80,13 @@ Add `amqplib` peer dependency.
 Install
 
 ```sh
-  yarn
+yarn
 ```
 
 Test
 
 ```sh
-  yarn test
+yarn test
 ```
 
 One time local setup
@@ -99,7 +99,7 @@ Install docker and docker-compose
 Make docker containers
 
 ```sh
-  yarn docker
+yarn docker
 ```
 
 ### Prod
@@ -107,5 +107,5 @@ Make docker containers
 Build
 
 ```sh
-  yarn build
+yarn build
 ```
