@@ -70,10 +70,10 @@
     "@amaui/utils" "^1.0.11411"
     "@babel/runtime" "^7.18.3"
 
-"@amaui/log@^1.0.21":
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/@amaui/log/-/log-1.0.21.tgz#852ad4a3656e87ef5b1897387e907f85133d6ab2"
-  integrity sha512-TlKmuFFwOeJnwbqkgC9zSp4/4gsmM30e2yf8qRbsJXRMUVCet0abLago5M+MPfZgvzJBqm7R9GLKhXzUKKuCEA==
+"@amaui/log@^1.0.22":
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/@amaui/log/-/log-1.0.22.tgz#fa34c0f1727f71f47f7f2649560063e9ec6c3c32"
+  integrity sha512-R+rD1lLXMXWZmwXB0qPSVA8QG8LsXLL6a+dSTt5s60QSjCTV9Kkl2WRtD16owGYeBse13kNuXIQ42lrY7wHP1Q==
   dependencies:
     "@amaui/date" "^1.1.11"
     "@amaui/subscription" "^1.0.5"
