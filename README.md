@@ -4,11 +4,11 @@
 
 <p align='center'>
   <a target='_blank' rel='noopener noreferrer' href='#'>
-    <img src='utils/images/logo.svg' alt='amaui logo' />
+    <img src='utils/images/logo.svg' alt='onesy logo' />
   </a>
 </p>
 
-<h1 align='center'>amaui AMQP</h1>
+<h1 align='center'>onesy AMQP</h1>
 
 <p align='center'>
   AMQP
@@ -38,7 +38,7 @@
 ### Add
 
 ```sh
-yarn add @amaui/amqp
+yarn add @onesy/amqp
 ```
 
 Add `amqplib` peer dependency.
@@ -50,26 +50,26 @@ yarn add amqplib
 ### Use
 
 ```javascript
-  import AmauiAmqp from '@amaui/amqp';
+  import OnesyAmqp from '@onesy/amqp';
   // Make if you wanna a config file and
   // inside of it add all the process.env related props
   import Config from './config';
 
   // Make a new amqp instance
-  const amauiAmqp = new AmauiAmqp({
+  const onesyAmqp = new OnesyAmqp({
     uri: Config.amqp.rabbitmq.uri,
     queues: Config.amqp.rabbitmq.queues,
     exchanges: Config.amqp.rabbitmq.exchanges,
   });
 
   // Await for a channel
-  await amauiAmqp.channel;
+  await onesyAmqp.channel;
 
   // Send to a queue
-  await amauiAmqp.send('a', 'a');
+  await onesyAmqp.send('a', 'a');
 
   // Check a queue
-  await amauiAmqp.checkQueue();
+  await onesyAmqp.checkQueue();
 
   // { queue: 'a', messageCount: 1, etc. }
 ```

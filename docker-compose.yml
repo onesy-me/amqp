@@ -2,22 +2,22 @@
 version: '3.8'
 
 services:
-  amaui-rabbitmq:
+  onesy-rabbitmq:
     image: rabbitmq:management
-    container_name: amaui-rabbitmq
+    container_name: onesy-rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=amaui
-      - RABBITMQ_DEFAULT_PASS=amaui
+      - RABBITMQ_DEFAULT_USER=onesy
+      - RABBITMQ_DEFAULT_PASS=onesy
     ports:
       - "5672:5672"
       - "15672:15672"
 
-  amaui-rabbitmq-test:
+  onesy-rabbitmq-test:
     image: rabbitmq:management
-    container_name: amaui-rabbitmq-test
+    container_name: onesy-rabbitmq-test
     environment:
-      - RABBITMQ_DEFAULT_USER=amaui
-      - RABBITMQ_DEFAULT_PASS=amaui
+      - RABBITMQ_DEFAULT_USER=onesy
+      - RABBITMQ_DEFAULT_PASS=onesy
     ports:
       - "7672:5672"
       - "17672:15672"

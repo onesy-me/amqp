@@ -1,11 +1,11 @@
 import amqp from 'amqplib';
 
-import merge from '@amaui/utils/merge';
-import stringify from '@amaui/utils/stringify';
-import parse from '@amaui/utils/parse';
-import { AmauiAmqpError, ConnectionError } from '@amaui/errors';
-import AmauiLog from '@amaui/log';
-import AmauiSubscription from '@amaui/subscription';
+import merge from '@onesy/utils/merge';
+import stringify from '@onesy/utils/stringify';
+import parse from '@onesy/utils/parse';
+import { OnesyAmqpError, ConnectionError } from '@onesy/errors';
+import OnesyLog from '@onesy/log';
+import OnesySubscription from '@onesy/subscription';
 
 export interface IExchange {
   name: string;
@@ -31,14 +31,14 @@ export const optionsDefault: IOptions = {
   exchanges: [],
 };
 
-class AmauiAmqp {
+class OnesyAmqp {
   public connection_: amqp.Connection;
   public channel_: amqp.Channel;
   public connected = false;
-  private amalog: AmauiLog;
+  private amalog: OnesyLog;
   private options_: IOptions = optionsDefault;
   // For listening on amqp events
-  public subscription = new AmauiSubscription();
+  public subscription = new OnesySubscription();
   public queues: Record<string, any> = {};
   public exchanges: Record<string, any> = {};
   public sendOptions: amqp.Options.Publish = {
@@ -59,7 +59,7 @@ class AmauiAmqp {
   public constructor(options: IOptions = optionsDefault) {
     this.options = options;
 
-    this.amalog = new AmauiLog({
+    this.amalog = new OnesyLog({
       arguments: {
         pre: [
           'AMQP'
@@ -242,7 +242,7 @@ class AmauiAmqp {
   }
 
   public async checkQueue(name: string): Promise<amqp.Replies.AssertQueue> {
-    if (!this.queues[name]) throw new AmauiAmqpError('No queue');
+    if (!this.queues[name]) throw new OnesyAmqpError('No queue');
 
     if (this.connected) {
       const channel = await this.channel;
@@ -250,7 +250,7 @@ class AmauiAmqp {
       try {
         const queue = await channel.checkQueue(name);
 
-        if (!queue) throw new AmauiAmqpError('No queue');
+        if (!queue) throw new OnesyAmqpError('No queue');
 
         return queue;
       }
@@ -261,7 +261,7 @@ class AmauiAmqp {
   }
 
   public async checkExchange(name: string): Promise<amqp.Replies.Empty> {
-    if (!this.exchanges[name]) throw new AmauiAmqpError('No exchange');
+    if (!this.exchanges[name]) throw new OnesyAmqpError('No exchange');
 
     if (this.connected) {
       const channel = await this.channel;
@@ -269,7 +269,7 @@ class AmauiAmqp {
       try {
         const exchange = await channel.checkExchange(name);
 
-        if (!exchange) throw new AmauiAmqpError('No exchange');
+        if (!exchange) throw new OnesyAmqpError('No exchange');
 
         return exchange;
       }
@@ -280,7 +280,7 @@ class AmauiAmqp {
   }
 
   public async removeQueue(name: string, options?: amqp.Options.DeleteQueue): Promise<amqp.Replies.DeleteQueue> {
-    if (!this.queues[name]) throw new AmauiAmqpError('No queue');
+    if (!this.queues[name]) throw new OnesyAmqpError('No queue');
 
     if (this.connected) {
       const channel = await this.channel;
@@ -288,7 +288,7 @@ class AmauiAmqp {
       try {
         const queue = await channel.checkQueue(name);
 
-        if (!queue) throw new AmauiAmqpError('No queue');
+        if (!queue) throw new OnesyAmqpError('No queue');
 
         const response = await channel.deleteQueue(name, options);
 
@@ -303,7 +303,7 @@ class AmauiAmqp {
   }
 
   public async removeExchange(name: string, options?: amqp.Options.DeleteQueue): Promise<amqp.Options.DeleteExchange> {
-    if (!this.exchanges[name]) throw new AmauiAmqpError('No exchange');
+    if (!this.exchanges[name]) throw new OnesyAmqpError('No exchange');
 
     if (this.connected) {
       const channel = await this.channel;
@@ -311,7 +311,7 @@ class AmauiAmqp {
       try {
         const exchange = await channel.checkExchange(name);
 
-        if (!exchange) throw new AmauiAmqpError('No exchange');
+        if (!exchange) throw new OnesyAmqpError('No exchange');
 
         const response = await channel.deleteExchange(name, options);
 
@@ -423,4 +423,4 @@ class AmauiAmqp {
 
 }
 
-export default AmauiAmqp;
+export default OnesyAmqp;

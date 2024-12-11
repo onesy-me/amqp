@@ -1,1 +1,1 @@
-export { default } from './AmauiAmqp';
+export { default } from './OnesyAmqp';

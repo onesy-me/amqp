@@ -1,10 +1,10 @@
 /* tslint:disable: no-shadowed-variable */
 import Amqp from 'amqplib';
 
-import { assert } from '@amaui/test';
-import { wait } from '@amaui/utils';
+import { assert } from '@onesy/test';
+import { wait } from '@onesy/utils';
 
-import AmauiAmqp from '../src';
+import OnesyAmqp from '../src';
 
 import Config from '../utils/js/config';
 
@@ -15,22 +15,22 @@ const options = {
 };
 
 preAll(async () => {
-  const amqp = new AmauiAmqp(options);
+  const amqp = new OnesyAmqp(options);
 
   await amqp.reset();
 
   await amqp.disconnect;
 });
 
-group('AmauiAmqp', () => {
-  let amqp: AmauiAmqp;
+group('OnesyAmqp', () => {
+  let amqp: OnesyAmqp;
   const messages = [];
   const responses = {};
   const queues = {};
   let newQueue: any;
 
   pre(async () => {
-    amqp = new AmauiAmqp(options);
+    amqp = new OnesyAmqp(options);
 
     Object.keys(options.queues).forEach(queue => responses[queue] = []);
 
