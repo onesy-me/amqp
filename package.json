@@ -2,7 +2,7 @@
   "name": "@onesy/amqp",
   "version": "1.0.0",
   "description": "AMQP",
-  "repository": "https://github.com/onesy-org/onesy-amqp.git",
+  "repository": "https://github.com/onesy-me/amqp.git",
   "author": "Lazar <lazareric.com@gmail.com>",
   "license": "MIT",
   "private": false,
