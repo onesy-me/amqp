@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AMQP",
   "repository": "https://github.com/onesy-me/amqp.git",
-  "author": "Lazar <lazareric2@gmail.com>",
+  "author": "Lazar Erić <lazareric1@proton.me>",
   "license": "MIT",
   "private": false,
   "main": "./src/index.ts",
